@@ -3,7 +3,7 @@ const Project = require("../models/project");
 const Category = require("../models/category");
 const router = express.Router();
 
-//Post Method
+// Add a new project
 router.post("/add", async (req, res) => {
   try {
     let category = await Category.findOne({ name: req.body.category });
@@ -24,7 +24,7 @@ router.post("/add", async (req, res) => {
   }
 });
 
-//Get all Method
+//Get all projects
 router.get("/", async (req, res) => {
   try {
     const data = await Project.find().populate("category");
@@ -67,17 +67,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-//Get by ID Method
-router.get("/:id", async (req, res) => {
-  try {
-    const project = await Project.findById(req.params.id);
-    res.status(200).json(project);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-//Update by ID Method
+//Update project by ID
 router.patch("/:id", async (req, res) => {
   try {
     const project = await Project.findByIdAndUpdate(req.params.id, req.body);
@@ -87,7 +77,7 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-//Delete by ID Method
+//Delete project by ID
 router.delete("/:id", async (req, res) => {
   try {
     const project = await Project.findByIdAndDelete(req.params.id);

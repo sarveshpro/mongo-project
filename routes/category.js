@@ -2,7 +2,7 @@ const express = require("express");
 const Category = require("../models/category");
 const router = express.Router();
 
-//Post Method
+// Add a new category
 router.post("/add", (req, res) => {
   try {
     const category = new Category({
@@ -15,7 +15,7 @@ router.post("/add", (req, res) => {
   }
 });
 
-//Get all Method
+//Get all categories
 router.get("/", async (req, res) => {
   try {
     const data = await Category.find();
@@ -55,17 +55,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-//Get by ID Method
-router.get("/:id", async (req, res) => {
-  try {
-    const category = await Category.findById(req.params.id);
-    res.status(200).json(category);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-//Update by ID Method
+//Update category by id
 router.patch("/:id", async (req, res) => {
   try {
     const category = await Category.findByIdAndUpdate(req.params.id, req.body);
@@ -75,7 +65,7 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-//Delete by ID Method
+//Delete category by id
 router.delete("/:id", async (req, res) => {
   try {
     const category = await Project.findByIdAndDelete(req.params.id);
